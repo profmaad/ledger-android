@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">LedgerAndroid</string>
+    <string name="amount">Amount</string>
+    <string name="payee">Payee</string>
+    <string name="account_to">To</string>
+    <string name="account_from">From</string>
 </resources>

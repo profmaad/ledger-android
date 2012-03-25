@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+  <PreferenceCategory
+     android:title="Webservice" >
+    <EditTextPreference android:key="wsuri"
+			android:name="Webservice URI"
+			android:summary="The URI of the ledger-rest webservice"
+			android:hint="http://example.com/ledger/rest"
+			android:title="Webservice URI" />
+  </PreferenceCategory>
+</PreferenceScreen>

@@ -1,78 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	      android:orientation="vertical"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	      android:layout_width="fill_parent"
 	      android:layout_height="fill_parent"
+	      android:shrinkColumns="1"
+	      android:stretchColumns="1"	      
 	      >
-
-  <LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		>
+  <TableRow>
     <TextView
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
+	android:text="@string/date"
+	android:paddingLeft="6dp"
+	android:paddingRight="16dp"
+	/>
+    <EditText
+	android:id="@+id/date_display"
+	android:gravity="right"
+	android:editable="false"
+	android:enabled="false"
+	/>
+    <Button
+	android:id="@+id/date_button"
+	android:text="@string/set"
+	/>
+  </TableRow>
+
+  <TableRow>
+    <TextView
 	android:text="@string/amount"
+	android:paddingLeft="6dp"
+	android:paddingRight="16dp"
 	/>
     <EditText
 	android:id="@+id/amount"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
 	android:digits="0123456789.,-"
 	android:gravity="right"
+	android:hint="23.00"
+	android:layout_span="2"
 	/>
-  </LinearLayout>
+  </TableRow>
 
-  <LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		>
+  <TableRow>
     <TextView
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
 	android:text="@string/payee"
+	android:paddingLeft="6dp"
+	android:paddingRight="16dp"
 	/>
     <EditText
 	android:id="@+id/payee"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
+	android:hint="Coffee Shop"
+	android:layout_span="2"
 	/>
-  </LinearLayout>
+  </TableRow>
   
-  <LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		>
+  <TableRow>
     <TextView
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
 	android:text="@string/account_to"
+	android:paddingLeft="6dp"
+	android:paddingRight="16dp"
 	/>
     <EditText
 	android:id="@+id/account_to"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
+	android:hint="Expenses:Food"
+	android:layout_span="2"
 	/>
-  </LinearLayout>
+  </TableRow>
   
-  <LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		>
+  <TableRow>
     <TextView
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
 	android:text="@string/account_from"
+	android:paddingLeft="6dp"
+	android:paddingRight="16dp"
 	/>
     <EditText
 	android:id="@+id/account_from"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
+	android:hint="Assets:Cash"
+	android:layout_span="2"
 	/>
-  </LinearLayout>
-</LinearLayout>
+  </TableRow>
+</TableLayout>
 

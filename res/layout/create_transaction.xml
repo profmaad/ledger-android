@@ -1,80 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	      android:layout_width="fill_parent"
 	      android:layout_height="fill_parent"
-	      android:shrinkColumns="1"
-	      android:stretchColumns="1"	      
+	      android:orientation="vertical"
 	      >
-  <TableRow>
-    <TextView
-	android:text="@string/date"
-	android:paddingLeft="6dp"
-	android:paddingRight="16dp"
-	/>
-    <EditText
-	android:id="@+id/date_display"
-	android:gravity="right"
-	android:editable="false"
-	android:enabled="false"
+  <TableLayout 
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:shrinkColumns="1"
+      android:stretchColumns="1"	      
+      >
+    <TableRow>
+      <TextView
+	  android:text="@string/date"
+	  android:paddingLeft="6dp"
+	  android:paddingRight="16dp"
+	  />
+      <EditText
+	  android:id="@+id/date_display"
+	  android:gravity="right"
+	  android:editable="false"
+	  android:enabled="false"
+	  />
+      <Button
+	  android:id="@+id/date_button"
+	  android:text="@string/set"
+	  />
+    </TableRow>
+
+    <TableRow>
+      <TextView
+	  android:text="@string/amount"
+	  android:paddingLeft="6dp"
+	  android:paddingRight="16dp"
+	  />
+      <EditText
+	  android:id="@+id/amount"
+	  android:digits="0123456789.,-"
+	  android:gravity="right"
+	  android:hint="23.00"
+	  android:layout_span="2"
+	  />
+    </TableRow>
+
+    <TableRow>
+      <TextView
+	  android:text="@string/payee"
+	  android:paddingLeft="6dp"
+	  android:paddingRight="16dp"
+	  />
+      <EditText
+	  android:id="@+id/payee"
+	  android:hint="Coffee Shop"
+	  android:layout_span="2"
+	  />
+    </TableRow>
+    
+    <TableRow>
+      <TextView
+	  android:text="@string/account_to"
+	  android:paddingLeft="6dp"
+	  android:paddingRight="16dp"
+	  />
+      <EditText
+	  android:id="@+id/account_to"
+	  android:hint="Expenses:Food"
+	  android:layout_span="2"
+	  />
+    </TableRow>
+    
+    <TableRow>
+      <TextView
+	  android:text="@string/account_from"
+	  android:paddingLeft="6dp"
+	  android:paddingRight="16dp"
+	  />
+      <EditText
+	  android:id="@+id/account_from"
+	  android:hint="Assets:Cash"
+	  android:layout_span="2"
+	  />
+    </TableRow>
+  </TableLayout>
+  <LinearLayout
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      >
+    <Button
+	android:id="@+id/save"
+	android:text="@string/save"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_weight="1"
+	android:onClick="save"
 	/>
     <Button
-	android:id="@+id/date_button"
-	android:text="@string/set"
+	android:id="@+id/cancel"
+	android:text="@string/cancel"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_weight="1"
+	android:onClick="cancel"
 	/>
-  </TableRow>
-
-  <TableRow>
-    <TextView
-	android:text="@string/amount"
-	android:paddingLeft="6dp"
-	android:paddingRight="16dp"
-	/>
-    <EditText
-	android:id="@+id/amount"
-	android:digits="0123456789.,-"
-	android:gravity="right"
-	android:hint="23.00"
-	android:layout_span="2"
-	/>
-  </TableRow>
-
-  <TableRow>
-    <TextView
-	android:text="@string/payee"
-	android:paddingLeft="6dp"
-	android:paddingRight="16dp"
-	/>
-    <EditText
-	android:id="@+id/payee"
-	android:hint="Coffee Shop"
-	android:layout_span="2"
-	/>
-  </TableRow>
-  
-  <TableRow>
-    <TextView
-	android:text="@string/account_to"
-	android:paddingLeft="6dp"
-	android:paddingRight="16dp"
-	/>
-    <EditText
-	android:id="@+id/account_to"
-	android:hint="Expenses:Food"
-	android:layout_span="2"
-	/>
-  </TableRow>
-  
-  <TableRow>
-    <TextView
-	android:text="@string/account_from"
-	android:paddingLeft="6dp"
-	android:paddingRight="16dp"
-	/>
-    <EditText
-	android:id="@+id/account_from"
-	android:hint="Assets:Cash"
-	android:layout_span="2"
-	/>
-  </TableRow>
-</TableLayout>
-
+  </LinearLayout>
+</LinearLayout>

@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.app.DatePickerDialog;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -92,5 +93,14 @@ public class CreateTransaction extends Activity
 		}
 
 		return null;
+	}
+
+	public void cancel(View v)
+	{
+		finish();
+	}
+	public void save(View v)
+	{
+		Toast.makeText(getApplicationContext(), "Saving Transaction", Toast.LENGTH_SHORT).show();
 	}
 }

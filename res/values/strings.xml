@@ -2,9 +2,11 @@
 <resources>
     <string name="app_name">LedgerAndroid</string>
     <string name="date">Date</string>
-    <string name="set">Set</string>
     <string name="amount">Amount</string>
     <string name="payee">Payee</string>
     <string name="account_to">To</string>
     <string name="account_from">From</string>
+    <string name="set">Set</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>

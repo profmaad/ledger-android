@@ -8,4 +8,17 @@
 			android:hint="http://example.com/ledger/rest"
 			android:title="Webservice URI" />
   </PreferenceCategory>
+  <PreferenceCategory
+     android:title="Default Currency" >
+    <EditTextPreference android:key="default_currency"
+			android:name="Default Currency"
+			android:summary="The currency to use if no currency was explicitly given"
+			android:hint="€"
+			android:title="Default Currency" />
+    <CheckBoxPreference android:key="default_currency_prepend"
+			android:name="Prepend?"
+			android:summaryOff="Append the currency symbol"
+			android:summaryOn="Prepend the currency symbol"
+			android:title="Prepend?" />
+  </PreferenceCategory>
 </PreferenceScreen>

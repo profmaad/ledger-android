@@ -11,11 +11,14 @@
 		android:layout_height="wrap_content"
 		>
     <TextView
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
 	android:text="@string/amount"
 	/>
     <EditText
 	android:id="@+id/amount"
 	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
 	android:digits="0123456789.,-"
 	android:gravity="right"
 	/>
@@ -27,11 +30,14 @@
 		android:layout_height="wrap_content"
 		>
     <TextView
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
 	android:text="@string/payee"
 	/>
     <EditText
 	android:id="@+id/payee"
 	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
 	/>
   </LinearLayout>
   
@@ -41,11 +47,14 @@
 		android:layout_height="wrap_content"
 		>
     <TextView
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
 	android:text="@string/account_to"
 	/>
     <EditText
 	android:id="@+id/account_to"
 	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
 	/>
   </LinearLayout>
   
@@ -55,11 +64,14 @@
 		android:layout_height="wrap_content"
 		>
     <TextView
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
 	android:text="@string/account_from"
 	/>
     <EditText
 	android:id="@+id/account_from"
 	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
 	/>
   </LinearLayout>
 </LinearLayout>

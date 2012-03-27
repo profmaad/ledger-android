@@ -18,6 +18,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import android.util.Log;
 
 public class CreateTransaction extends Activity
@@ -81,7 +84,7 @@ public class CreateTransaction extends Activity
 	{
 		date = c.getTime();
 		Log.d(TAG, "date: "+date.toString());
-		dateDisplay.setText(SimpleDateFormat.getDateInstance().format(date));		
+		dateDisplay.setText(SimpleDateFormat.getDateInstance().format(date));
 	}
 
 	@Override
@@ -104,7 +107,11 @@ public class CreateTransaction extends Activity
 	}
 	public void save(View v)
 	{
-		Toast.makeText(getApplicationContext(), "Amount: "+formatAmount(amountEdit.getText().toString()), Toast.LENGTH_SHORT).show();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").setPrettyPrinting().create();
+
+		LedgerTransaction transaction = new LedgerTransaction(date, formatAmount(amountEdit.getText().toString()), payeeEdit.getText().toString(), accountToEdit.getText().toString(), accountFromEdit.getText().toString());
+
+		Toast.makeText(getApplicationContext(), gson.toJson(transaction), Toast.LENGTH_LONG).show();
 	}
 
 	private String formatAmount(float amount)

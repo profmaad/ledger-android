@@ -10,6 +10,7 @@ import android.app.DatePickerDialog;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Toast;
+import android.content.Intent;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -41,6 +42,7 @@ public class CreateTransaction extends Activity
 
 	private static final int DIALOG_DATE_PICKER = 0;
 	private static final String TAG = "LedgerAndroid";
+	private static final String EXTRA_TRANSACTION_JSON = "transaction_json";
 
     /** Called when the activity is first created. */
     @Override
@@ -73,7 +75,6 @@ public class CreateTransaction extends Activity
 		{
 			public void onDateSet(DatePicker view, int year, int month, int day)
 			{
-				Log.d(TAG, "year: "+year);
 				Calendar c = Calendar.getInstance();
 				c.set(year, month, day);
 				setDate(c);
@@ -83,7 +84,6 @@ public class CreateTransaction extends Activity
 	private void setDate(Calendar c)
 	{
 		date = c.getTime();
-		Log.d(TAG, "date: "+date.toString());
 		dateDisplay.setText(SimpleDateFormat.getDateInstance().format(date));
 	}
 
@@ -111,7 +111,12 @@ public class CreateTransaction extends Activity
 
 		LedgerTransaction transaction = new LedgerTransaction(date, formatAmount(amountEdit.getText().toString()), payeeEdit.getText().toString(), accountToEdit.getText().toString(), accountFromEdit.getText().toString());
 
-		Toast.makeText(getApplicationContext(), gson.toJson(transaction), Toast.LENGTH_LONG).show();
+		Intent commitIntent = new Intent(this, CommitTransactionService.class);
+		commitIntent.putExtra(EXTRA_TRANSACTION_JSON, gson.toJson(transaction));
+
+		startService(commitIntent);
+
+		finish();
 	}
 
 	private String formatAmount(float amount)

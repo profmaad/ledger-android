@@ -12,4 +12,8 @@ public class LedgerPosting
 	private Date effective_date;
 	
 	private boolean virtual;
+
+	private String comment;
+
+	public LedgerPosting() {};
 }

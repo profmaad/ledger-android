@@ -10,4 +10,6 @@ public class LedgerTransaction
 	private String payee;
 	
 	private List<LedgerPosting> postings;
+
+	public LedgerTransaction() {};
 }

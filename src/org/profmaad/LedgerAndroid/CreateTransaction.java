@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
@@ -101,6 +104,27 @@ public class CreateTransaction extends Activity
 	}
 	public void save(View v)
 	{
-		Toast.makeText(getApplicationContext(), "Saving Transaction", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "Amount: "+formatAmount(amountEdit.getText().toString()), Toast.LENGTH_SHORT).show();
+	}
+
+	private String formatAmount(float amount)
+	{
+		return formatAmount(Float.toString(amount));
+	}
+	private String formatAmount(String amount)
+	{
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		String currencySymbol = prefs.getString("default_currency", "€");
+		boolean prependSymbol = prefs.getBoolean("default_currency_prepend", false);
+		
+
+		if(prependSymbol)
+		{
+			return currencySymbol+" "+amount;
+		}
+		else
+		{
+			return amount+" "+currencySymbol;
+		}
 	}
 }

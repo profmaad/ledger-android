@@ -18,6 +18,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
@@ -159,17 +163,12 @@ public class CreateTransaction extends Activity
 		finish();
 	}
 
-	private String formatAmount(float amount)
-	{
-		return formatAmount(Float.toString(amount));
-	}
 	private String formatAmount(String amount)
 	{
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String currencySymbol = prefs.getString("default_currency", "€");
 		boolean prependSymbol = prefs.getBoolean("default_currency_prepend", false);
-		
-
+	  
 		if(prependSymbol)
 		{
 			return currencySymbol+" "+amount;
@@ -197,5 +196,27 @@ public class CreateTransaction extends Activity
 		}
 
 		return "";
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_menu, menu);
+
+		return true;
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch(item.getItemId())
+		{
+		case R.id.preferences:
+			Intent startPreferencesIntent = new Intent(this, LedgerAndroidPreferences.class);
+			startActivity(startPreferencesIntent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }

@@ -36,11 +36,14 @@
 	  />
       <EditText
 	  android:id="@+id/amount"
-	  android:digits="0123456789.,-"
 	  android:gravity="right"
 	  android:hint="23.00"
 	  android:layout_span="2"
-	  />
+	  android:inputType="numberDecimal|numberSigned"
+	  android:imeOptions="actionNext"
+	  >
+	<requestFocus />
+      </EditText>
     </TableRow>
 
     <TableRow>
@@ -53,6 +56,9 @@
 	  android:id="@+id/payee"
 	  android:hint="Coffee Shop"
 	  android:layout_span="2"
+	  android:singleLine="true"
+	  android:ellipsize="end"
+	  android:imeOptions="actionNext"
 	  />
     </TableRow>
     
@@ -66,6 +72,9 @@
 	  android:id="@+id/account_to"
 	  android:hint="Expenses:Food"
 	  android:layout_span="2"
+	  android:singleLine="true"
+	  android:ellipsize="end"
+	  android:imeOptions="actionNext"
 	  />
     </TableRow>
     
@@ -79,6 +88,9 @@
 	  android:id="@+id/account_from"
 	  android:hint="Assets:Cash"
 	  android:layout_span="2"
+	  android:singleLine="true"
+	  android:ellipsize="end"
+	  android:imeOptions="actionDone"
 	  />
     </TableRow>
   </TableLayout>

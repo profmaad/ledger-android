@@ -3,9 +3,14 @@ package org.profmaad.LedgerAndroid;
 import android.app.IntentService;
 
 import android.content.Intent;
+import android.app.PendingIntent;
+import android.content.Context;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
+import android.app.Notification;
+import android.app.NotificationManager;
 
 import android.util.Log;
 
@@ -34,6 +39,7 @@ public class CommitTransactionService extends IntentService
 	private static final String ENDPOINT_RESOURCE = "/transactions";
 	private static final String TAG = "LedgerAndroid";
 	private static final String DEFAULT_ENCODING = "UTF-8";
+	private static final int NOTIFICATION_ERROR = 1;
 
 	private String endpointUrl;
 
@@ -75,16 +81,19 @@ public class CommitTransactionService extends IntentService
 			if( webserviceResponse.isError())
 			{
 				Log.e(TAG, "Failed to commit transaction: "+webserviceResponse.getMessage());
+				postErrorNotification(webserviceResponse.getMessage(), transactionJson);
 			}			
 		}
 		catch(ClientProtocolException e)
 		{
 			Log.e(TAG, "Failed to commit transaction: "+e.toString());
+			postErrorNotification(e.toString(), transactionJson);
 			return;
 		}
 		catch(IOException e)
 		{
 			Log.e(TAG, "Failed to commit transaction: "+e.toString());
+			postErrorNotification(e.toString(), transactionJson);
 			return;
 		}
 	}
@@ -112,5 +121,19 @@ public class CommitTransactionService extends IntentService
 		}
 
 		return result;
+	}
+
+	private void postErrorNotification(String reason, String transactionJson)
+	{
+		NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+
+		Intent intent = new Intent(this, CreateTransaction.class);
+		intent.putExtra(EXTRA_TRANSACTION_JSON, transactionJson);
+		PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+		Notification notification = new Notification(android.R.drawable.stat_notify_error, "Error", System.currentTimeMillis());
+		notification.setLatestEventInfo(getApplicationContext(), "Failed to commit transaction", reason, pIntent);
+
+		manager.notify(NOTIFICATION_ERROR, notification);
 	}
 }

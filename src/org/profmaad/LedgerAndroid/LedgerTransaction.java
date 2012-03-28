@@ -30,4 +30,8 @@ public class LedgerTransaction
 		this.postings.add(toPosting);
 		this.postings.add(fromPosting);
 	}
+
+	public Date getDate() { return date; }
+	public String getPayee() { return payee; }
+	public List<LedgerPosting> getPostings() { return postings; }
 }

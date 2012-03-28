@@ -28,4 +28,7 @@ public class LedgerPosting
 		this.account = account;
 		this.amount = amount;
 	}
+
+	public String getAmount() { return amount; }
+	public String getAccount() { return account; }
 }

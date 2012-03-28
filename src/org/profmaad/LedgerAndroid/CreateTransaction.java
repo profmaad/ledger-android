@@ -3,6 +3,9 @@ package org.profmaad.LedgerAndroid;
 import android.app.Activity;
 import android.os.Bundle;
 
+import android.app.NotificationManager;
+import android.content.Context;
+
 import android.widget.EditText;
 import android.widget.Button;
 import android.app.Dialog;
@@ -21,6 +24,7 @@ import java.util.Calendar;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 
 import android.util.Log;
 
@@ -43,6 +47,7 @@ public class CreateTransaction extends Activity
 	private static final int DIALOG_DATE_PICKER = 0;
 	private static final String TAG = "LedgerAndroid";
 	private static final String EXTRA_TRANSACTION_JSON = "transaction_json";
+	private static final int NOTIFICATION_ERROR = 1;
 
     /** Called when the activity is first created. */
     @Override
@@ -68,6 +73,36 @@ public class CreateTransaction extends Activity
 				showDialog(DIALOG_DATE_PICKER);
 			}
 		});
+
+		Intent startIntent = getIntent();
+		if(startIntent.hasExtra(EXTRA_TRANSACTION_JSON))
+		{
+			NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+			manager.cancel(NOTIFICATION_ERROR);
+		
+			String transactionJson = startIntent.getStringExtra(EXTRA_TRANSACTION_JSON);
+
+			Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+
+			try
+			{
+				LedgerTransaction transaction = gson.fromJson(transactionJson, LedgerTransaction.class);
+
+				if(transaction.getPostings().size() >= 2)
+				{
+					setDate(transaction.getDate());
+					payeeEdit.setText(transaction.getPayee());
+
+					amountEdit.setText(parseAmount(transaction.getPostings().get(0).getAmount()));
+					accountToEdit.setText(transaction.getPostings().get(0).getAccount());
+					accountFromEdit.setText(transaction.getPostings().get(1).getAccount());
+				}
+			}
+			catch(JsonSyntaxException e)
+			{
+				Log.w(TAG, "Failed to parse transaction json from startt intent: "+e.toString());
+			}
+		}
     }
 
 	private DatePickerDialog.OnDateSetListener dateSetListener =
@@ -84,6 +119,11 @@ public class CreateTransaction extends Activity
 	private void setDate(Calendar c)
 	{
 		date = c.getTime();
+		dateDisplay.setText(SimpleDateFormat.getDateInstance().format(date));
+	}
+	private void setDate(Date d)
+	{
+		date = d;
 		dateDisplay.setText(SimpleDateFormat.getDateInstance().format(date));
 	}
 
@@ -138,5 +178,24 @@ public class CreateTransaction extends Activity
 		{
 			return amount+" "+currencySymbol;
 		}
+	}
+	private String parseAmount(String amount)
+	{
+		String[] parts = amount.split(" ");
+
+		for(String part : parts)
+		{
+			try
+			{
+				float result = Float.valueOf(part);
+				return part;
+			}
+			catch(NumberFormatException e)
+			{
+				continue;
+			}
+		}
+
+		return "";
 	}
 }

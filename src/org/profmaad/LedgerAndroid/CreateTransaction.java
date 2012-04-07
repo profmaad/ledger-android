@@ -7,6 +7,8 @@ import android.app.NotificationManager;
 import android.content.Context;
 
 import android.widget.EditText;
+import android.widget.AutoCompleteTextView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.app.Dialog;
 import android.app.DatePickerDialog;
@@ -42,9 +44,9 @@ public class CreateTransaction extends Activity
 	private Button dateButton;
 
 	private EditText amountEdit;
-	private EditText payeeEdit;
-	private EditText accountToEdit;
-	private EditText accountFromEdit;
+	private AutoCompleteTextView payeeEdit;
+	private AutoCompleteTextView accountToEdit;
+	private AutoCompleteTextView accountFromEdit;
 
 	private Date date;
 	private float amount;
@@ -69,10 +71,8 @@ public class CreateTransaction extends Activity
 			ArrayList<String> accounts = intent.getStringArrayListExtra(EXTRA_PACKAGE+EXTRA_ACCOUNTS_LIST);
 			ArrayList<String> payees = intent.getStringArrayListExtra(EXTRA_PACKAGE+EXTRA_PAYEES_LIST);
 
-			Log.d(TAG, "received accounts:");
-			Log.d(TAG, accounts.toString());
-			Log.d(TAG, "received payees:");
-			Log.d(TAG, payees.toString());
+			Log.i(TAG, "Received autocomplete data");
+			setAutocompleteData(payees, accounts);
 		}
 	};
 
@@ -87,10 +87,10 @@ public class CreateTransaction extends Activity
 		dateButton = (Button)findViewById(R.id.date_button);
 
 		amountEdit = (EditText)findViewById(R.id.amount);
-		payeeEdit = (EditText)findViewById(R.id.payee);
-		accountToEdit = (EditText)findViewById(R.id.account_to);
-		accountFromEdit = (EditText)findViewById(R.id.account_from);
-
+		payeeEdit = (AutoCompleteTextView)findViewById(R.id.payee);
+		accountToEdit = (AutoCompleteTextView)findViewById(R.id.account_to);
+		accountFromEdit = (AutoCompleteTextView)findViewById(R.id.account_from);		
+		
 		setDate(Calendar.getInstance());
 		
 		dateButton.setOnClickListener(new View.OnClickListener()
@@ -244,5 +244,15 @@ public class CreateTransaction extends Activity
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	public void setAutocompleteData(ArrayList<String> payees, ArrayList<String> accounts)
+	{
+		ArrayAdapter<String> payeesAdapter = new ArrayAdapter<String>(this, R.layout.autocomplete_item, payees);
+		payeeEdit.setAdapter(payeesAdapter);
+
+		ArrayAdapter<String> accountsAdapter = new ArrayAdapter<String>(this, R.layout.autocomplete_item, accounts);
+		accountToEdit.setAdapter(accountsAdapter);
+		accountFromEdit.setAdapter(accountsAdapter);
 	}
 }

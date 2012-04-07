@@ -52,7 +52,7 @@
 	  android:paddingLeft="6dp"
 	  android:paddingRight="16dp"
 	  />
-      <EditText
+      <AutoCompleteTextView
 	  android:id="@+id/payee"
 	  android:hint="Coffee Shop"
 	  android:layout_span="2"
@@ -68,7 +68,7 @@
 	  android:paddingLeft="6dp"
 	  android:paddingRight="16dp"
 	  />
-      <EditText
+      <AutoCompleteTextView
 	  android:id="@+id/account_to"
 	  android:hint="Expenses:Food"
 	  android:layout_span="2"
@@ -84,7 +84,7 @@
 	  android:paddingLeft="6dp"
 	  android:paddingRight="16dp"
 	  />
-      <EditText
+      <AutoCompleteTextView
 	  android:id="@+id/account_from"
 	  android:hint="Assets:Cash"
 	  android:layout_span="2"

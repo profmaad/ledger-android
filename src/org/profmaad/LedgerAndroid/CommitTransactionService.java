@@ -75,7 +75,7 @@ public class CommitTransactionService extends IntentService
 			postRequest.setEntity(new UrlEncodedFormEntity(postData, DEFAULT_ENCODING));
 
 			HttpResponse response = httpClient.execute(postRequest);
-			WebserviceResponse webserviceResponse = getWebserviceResponse(response);
+			WebserviceResponse webserviceResponse = WebserviceResponse.createFromHttpResponse(response);
 			if(webserviceResponse == null) { return; }
 			
 			if( webserviceResponse.isError())
@@ -98,31 +98,6 @@ public class CommitTransactionService extends IntentService
 		}
 	}
 	
-	private WebserviceResponse getWebserviceResponse(HttpResponse response) throws IOException
-	{
-		if(response.getEntity() == null) { return null; }
-
-		String encoding = DEFAULT_ENCODING;
-		if(response.getEntity().getContentEncoding() != null) { encoding = response.getEntity().getContentEncoding().getValue(); }
-
-		BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), encoding));
-		
-		Gson gson = new Gson();
-
-		WebserviceResponse result = null;
-		try
-		{
-			result = gson.fromJson(reader, WebserviceResponse.class);
-		}
-		catch(JsonParseException e)
-		{
-			Log.e(TAG, "Failed to parse response from webservice: "+e.toString());
-			return null;
-		}
-
-		return result;
-	}
-
 	private void postErrorNotification(String reason, String transactionJson)
 	{
 		NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);

@@ -14,6 +14,9 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Toast;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.BroadcastReceiver;
+import android.support.v4.content.LocalBroadcastManager;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -25,6 +28,7 @@ import android.view.MenuItem;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
+import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -50,8 +54,27 @@ public class CreateTransaction extends Activity
 
 	private static final int DIALOG_DATE_PICKER = 0;
 	private static final String TAG = "LedgerAndroid";
+	private static final String EXTRA_PACKAGE = "org.profmaad.LedgerAndroid.";
 	private static final String EXTRA_TRANSACTION_JSON = "transaction_json";
+	private static final String EXTRA_ACCOUNTS_LIST = "accounts";
+	private static final String EXTRA_PAYEES_LIST = "payees";
 	private static final int NOTIFICATION_ERROR = 1;
+	private static final String INTENT_AUTOCOMPLETE_DATA = "autocomplete-data-received";
+
+	private BroadcastReceiver autocompleteReceiver = new BroadcastReceiver()
+	{
+		@Override
+		public void onReceive(Context context, Intent intent)
+		{
+			ArrayList<String> accounts = intent.getStringArrayListExtra(EXTRA_PACKAGE+EXTRA_ACCOUNTS_LIST);
+			ArrayList<String> payees = intent.getStringArrayListExtra(EXTRA_PACKAGE+EXTRA_PAYEES_LIST);
+
+			Log.d(TAG, "received accounts:");
+			Log.d(TAG, accounts.toString());
+			Log.d(TAG, "received payees:");
+			Log.d(TAG, payees.toString());
+		}
+	};
 
     /** Called when the activity is first created. */
     @Override
@@ -107,6 +130,9 @@ public class CreateTransaction extends Activity
 				Log.w(TAG, "Failed to parse transaction json from startt intent: "+e.toString());
 			}
 		}
+
+		LocalBroadcastManager.getInstance(this).registerReceiver(autocompleteReceiver, new IntentFilter(INTENT_AUTOCOMPLETE_DATA));
+		startService(new Intent(this, AutoCompleteDataService.class));
     }
 
 	private DatePickerDialog.OnDateSetListener dateSetListener =

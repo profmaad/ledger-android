@@ -18,6 +18,8 @@
 		  android:label="@string/preferences" />
 	<service android:name="CommitTransactionService"
 		 android:exported="false" />
+	<service android:name="AutoCompleteDataService"
+		 android:exported="false" />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
